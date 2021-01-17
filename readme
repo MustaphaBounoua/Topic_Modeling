@@ -3,7 +3,7 @@ NLP Project:
 
 TOPIC Modeling 
 
-Util references:
+References:
 https://towardsdatascience.com/topic-modeling-and-latent-dirichlet-allocation-in-python-9bf156893c24
 https://towardsdatascience.com/topic-modelling-in-python-with-nltk-and-gensim-4ef03213cd21
 https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html
