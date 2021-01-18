@@ -56,3 +56,19 @@ def clean_sentence(text):
     ## lemma of words with lenght > 2
     tokens = [get_lemma(token) for token in tokens if ( token not in STOP_WORDS and len(token) > 2)]
     return tokens
+
+
+
+def prepare_for_lda(df):
+    """[Get a clean array for lda]
+
+    Args:
+        df ([DataFrame]): [Data Frame]
+
+    Returns:
+        [Arr]: [Array of clean text]
+    """
+    data = df["text"].to_numpy()
+    data = [clean_sentence(sentence) for sentence in data ]
+    #return np.concatenate( data, axis=0 )
+    return data
