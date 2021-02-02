@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod 
-from preprocess import clean_sentence
+from .preprocess import clean_sentence
 from gensim import corpora, models, similarities
 import pyLDAvis.gensim
 import pandas as pd
@@ -46,9 +46,8 @@ class LDATopicModeler(TopicModeler):
         self.clean_data()
     
     
-    
     def clean_data(cls):
-        text = cls.__data["text"].to_numpy()
+        text = cls.data["text"].to_numpy()
         cls.text = [clean_sentence(sentence) for sentence in text ]
     
     
@@ -56,7 +55,7 @@ class LDATopicModeler(TopicModeler):
     def create_corpus_from_text(cls):
         
         cls.dictionary = corpora.Dictionary(cls.text)
-        cls.corpus = [cls.dictionary.doc2bow(word) for word in texts]
+        cls.corpus = [cls.dictionary.doc2bow(word) for word in cls.text]
     
     
     
@@ -66,11 +65,11 @@ class LDATopicModeler(TopicModeler):
     
     
     def train_clustering_model(cls):
-        cls.lda = models.LdaModel(cls.corpus_tfidf, id2word=dictionary, num_topics=NB_TOPIC)
+        cls.lda = models.LdaModel(cls.corpus_tfidf, id2word = cls.dictionary, num_topics = cls.nb_topics)
     
     def generate_topics(cls,nb_words):
         cls.corpus_lda = cls.lda[cls.corpus_tfidf]
-        return lda.show_topics(cls.nb_topics, nb_words)
+        return cls.lda.show_topics(cls.nb_topics, nb_words)
     
 
     def fit(cls):
@@ -79,7 +78,7 @@ class LDATopicModeler(TopicModeler):
         cls.train_clustering_model()
     
     
-    @abstractmethod
-    def display_gensim_topics_plot(topic_model):
-        lda_display = pyLDAvis.gensim.prepare(topic_model.lda, topic_model.corpus, topic_model.dictionary, sort_topics=False)
-        pyLDAvis.display(lda_display)
+    
+    def display_gensim_topics_plot(cls):
+       lda_display = pyLDAvis.gensim.prepare(cls.lda, cls.corpus, cls.dictionary, sort_topics=False)
+       pyLDAvis.display(lda_display)
