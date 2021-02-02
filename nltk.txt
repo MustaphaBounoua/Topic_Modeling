@@ -1,2 +1,4 @@
-corpora
 stopwords
+wordnet
+pros_cons
+reuters
