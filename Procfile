@@ -1,1 +1,1 @@
-streamlit run topic_modeling_app.py
+web: streamlit run app.py
