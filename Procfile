@@ -1,1 +1,1 @@
-web: streamlit run topic_modeling_app.py
+web: sh setup.sh && streamlit run topic_modeling_app.py
